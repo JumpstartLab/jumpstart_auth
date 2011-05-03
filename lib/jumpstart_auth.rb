@@ -1,6 +1,7 @@
 require 'oauth'
 require 'twitter'
 require 'launchy'
+require 'yaml'
 
 class JumpstartAuth
   @@credentials = {
