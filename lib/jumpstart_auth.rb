@@ -10,6 +10,16 @@ class JumpstartAuth
 
   def self.client_class
     @client_class ||= Class.new(Twitter::Client) do
+      def followers
+        follower_ids = Twitter.follower_ids(:cursor => -1).ids
+        follower_ids.collect {|id| Twitter.user(id) }
+      end
+
+      def friends
+        friend_ids = Twitter.friend_ids(:cursor => -1).ids
+        friend_ids.collect {|id| Twitter.user(id) }
+      end
+
       def update(message)
         if message.match(/^d\s/i) then
           d, name, *rest = message.chomp.split
