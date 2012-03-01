@@ -8,6 +8,35 @@ class JumpstartAuth
     :consumer_secret => "M0XkT6GeBnjxdlWHcSGYX1JutMVS9D5ISlkqRfShg"
   }
 
+  def self.client_class
+    @client_class ||= Class.new(Twitter::Client) do
+      def followers
+        follower_ids = Twitter.follower_ids(:cursor => -1).ids
+        follower_ids.collect {|id| Twitter.user(id) }
+      end
+
+      def friends
+        friend_ids = Twitter.friend_ids(:cursor => -1).ids
+        friend_ids.collect {|id| Twitter.user(id) }
+      end
+
+      def update(message)
+        if message.match(/^d\s/i) then
+          d, name, *rest = message.chomp.split
+          message.sub!(/.*#{name}\s/, '')
+
+          begin
+            Twitter.direct_message_create(name, message)
+          rescue Twitter::Error::Forbidden
+          end
+        else
+          super(message)
+        end
+      end
+    end
+  end
+  private_class_method :client_class
+
   def self.twitter
     setup_oauth unless load_settings
     Twitter.configure do |config|
@@ -17,7 +46,7 @@ class JumpstartAuth
       config.oauth_token_secret = @@credentials[:oauth_secret]
     end
 
-    return Twitter::Client.new
+    return client_class.new
   end
 
 private
