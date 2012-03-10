@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{jumpstart_auth}
-  s.version = "0.2.0"
+  s.name = "jumpstart_auth"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeff Casimir"]
-  s.date = %q{2011-05-03}
-  s.description = %q{Simplifies authenticating to online services.}
-  s.email = %q{jeff@jumpstartlab.com}
+  s.date = "2012-03-10"
+  s.description = "Simplifies authenticating to online services."
+  s.email = "jeff@jumpstartlab.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -29,11 +29,11 @@ Gem::Specification.new do |s|
     "test/helper.rb",
     "test/test_jumpstart_auth.rb"
   ]
-  s.homepage = %q{http://github.com/jcasimir/jumpstart_auth}
+  s.homepage = "http://github.com/jcasimir/jumpstart_auth"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{Authentication library support for JumpstartLab projects}
+  s.rubygems_version = "1.8.17"
+  s.summary = "Authentication library support for JumpstartLab projects"
   s.test_files = [
     "test/helper.rb",
     "test/test_jumpstart_auth.rb"
