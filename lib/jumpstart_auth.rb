@@ -10,7 +10,7 @@ class JumpstartAuth
   }
 
   def self.client_class
-    @client_class ||= Class.new(Twitter::Client) do
+    @client_class ||= Class.new(Twitter::REST::Client) do
       def followers
         follower_ids = Twitter.follower_ids(:cursor => -1).ids
         follower_ids.collect {|id| Twitter.user(id) }
@@ -27,7 +27,7 @@ class JumpstartAuth
           message.sub!(/.*#{name}\s/, '')
 
           begin
-            Twitter.direct_message_create(name, message)
+            Twitter.create_direct_message(name, message)
           rescue Twitter::Error::Forbidden
           end
         else
@@ -40,14 +40,13 @@ class JumpstartAuth
 
   def self.twitter
     setup_oauth unless load_settings
-    Twitter.configure do |config|
+
+    return client_class.new do |config|
       config.consumer_key = @@credentials[:consumer_key]
       config.consumer_secret = @@credentials[:consumer_secret]
-      config.oauth_token = @@credentials[:oauth_token]
-      config.oauth_token_secret = @@credentials[:oauth_secret]
+      config.access_token = @@credentials[:access_token]
+      config.access_token_secret = @@credentials[:access_token_secret]
     end
-
-    return client_class.new
   end
 
 private
@@ -73,8 +72,8 @@ private
     Launchy.open(request_token.authorize_url)
     pin = gets.chomp
     access_token = request_token.get_access_token(:oauth_verifier => pin)
-    @@credentials[:oauth_token] = access_token.token
-    @@credentials[:oauth_secret] = access_token.secret
+    @@credentials[:access_token] = access_token.token
+    @@credentials[:access_token_secret] = access_token.secret
     write_settings
   end
 end
