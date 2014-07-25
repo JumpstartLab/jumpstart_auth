@@ -18,6 +18,10 @@ pkg
 .ruby-version
 .ruby-gemset
 
+# common bundler paths for gems
+vendor/ruby/
+vendor/cache/
+
 # Have editor/IDE/OS specific files you need to ignore? Consider using a global gitignore: 
 #
 # * Create a file at ~/.gitignore
@@ -44,3 +48,4 @@ pkg
 #
 # For vim:
 #*.swp
+
