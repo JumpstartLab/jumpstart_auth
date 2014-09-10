@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jumpstart_auth (0.5.0)
+    jumpstart_auth (0.6.0)
       launchy (~> 2.4)
       oauth (~> 0.4)
       twitter (~> 5.6)
