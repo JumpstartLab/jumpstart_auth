@@ -66,7 +66,7 @@ module JumpstartAuth
       request_token = consumer.get_request_token
       printf "Enter the supplied pin: "
       Launchy.open(request_token.authorize_url)
-      pin = gets.chomp
+      pin = STDIN.gets.chomp
       access_token = request_token.get_access_token(:oauth_verifier => pin)
       @@credentials[:access_token] = access_token.token
       @@credentials[:access_token_secret] = access_token.secret
